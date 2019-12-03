@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package profbiss.null;
+
+option go_package = "null";
+
+// String is a nullable string. It supports SQL and JSON serialization.
+message Int {
+    int64 i = 1;
+    bool valid = 2;
+}

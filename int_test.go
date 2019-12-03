@@ -152,8 +152,8 @@ func TestIntScan(t *testing.T) {
 }
 
 func assertInt(t *testing.T, i Int, from string) {
-	if i.Int != 12345 {
-		t.Errorf("bad %s int: %d ≠ %d\n", from, i.Int, 12345)
+	if i.I != 12345 {
+		t.Errorf("bad %s int: %d ≠ %d\n", from, i.I, 12345)
 	}
 	if !i.Valid {
 		t.Error(from, "is invalid, but should be valid")

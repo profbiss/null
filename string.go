@@ -9,12 +9,6 @@ import (
 	"github.com/volatiletech/sqlboiler/randomize"
 )
 
-// String is a nullable string. It supports SQL and JSON serialization.
-type String struct {
-	String string
-	Valid  bool
-}
-
 // StringFrom creates a new String that will never be blank.
 func StringFrom(s string) String {
 	return NewString(s, true)
@@ -31,20 +25,20 @@ func StringFromPtr(s *string) String {
 // NewString creates a new String
 func NewString(s string, valid bool) String {
 	return String{
-		String: s,
-		Valid:  valid,
+		Str:   s,
+		Valid: valid,
 	}
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (s *String) UnmarshalJSON(data []byte) error {
 	if bytes.Equal(data, NullBytes) {
-		s.String = ""
+		s.Str = ""
 		s.Valid = false
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &s.String); err != nil {
+	if err := json.Unmarshal(data, &s.Str); err != nil {
 		return err
 	}
 
@@ -57,7 +51,7 @@ func (s String) MarshalJSON() ([]byte, error) {
 	if !s.Valid {
 		return NullBytes, nil
 	}
-	return json.Marshal(s.String)
+	return json.Marshal(s.Str)
 }
 
 // MarshalText implements encoding.TextMarshaler.
@@ -65,7 +59,7 @@ func (s String) MarshalText() ([]byte, error) {
 	if !s.Valid {
 		return []byte{}, nil
 	}
-	return []byte(s.String), nil
+	return []byte(s.Str), nil
 }
 
 // UnmarshalText implements encoding.TextUnmarshaler.
@@ -75,14 +69,14 @@ func (s *String) UnmarshalText(text []byte) error {
 		return nil
 	}
 
-	s.String = string(text)
+	s.Str = string(text)
 	s.Valid = true
 	return nil
 }
 
 // SetValid changes this String's value and also sets it to be non-null.
 func (s *String) SetValid(v string) {
-	s.String = v
+	s.Str = v
 	s.Valid = true
 }
 
@@ -91,7 +85,7 @@ func (s String) Ptr() *string {
 	if !s.Valid {
 		return nil
 	}
-	return &s.String
+	return &s.Str
 }
 
 // IsZero returns true for null strings, for potential future omitempty support.
@@ -102,11 +96,11 @@ func (s String) IsZero() bool {
 // Scan implements the Scanner interface.
 func (s *String) Scan(value interface{}) error {
 	if value == nil {
-		s.String, s.Valid = "", false
+		s.Str, s.Valid = "", false
 		return nil
 	}
 	s.Valid = true
-	return convert.ConvertAssign(&s.String, value)
+	return convert.ConvertAssign(&s.Str, value)
 }
 
 // Value implements the driver Valuer interface.
@@ -114,23 +108,23 @@ func (s String) Value() (driver.Value, error) {
 	if !s.Valid {
 		return nil, nil
 	}
-	return s.String, nil
+	return s.Str, nil
 }
 
 // Randomize for sqlboiler
 func (s *String) Randomize(nextInt func() int64, fieldType string, shouldBeNull bool) {
 	str, ok := randomize.FormattedString(nextInt, fieldType)
 	if ok {
-		s.String = str
+		s.Str = str
 		s.Valid = true
 		return
 	}
 
 	if shouldBeNull {
-		s.String = ""
+		s.Str = ""
 		s.Valid = false
 	} else {
-		s.String = randomize.Str(nextInt, 1)
+		s.Str = randomize.Str(nextInt, 1)
 		s.Valid = true
 	}
 }

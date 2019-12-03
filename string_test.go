@@ -179,8 +179,8 @@ func maybePanic(err error) {
 }
 
 func assertStr(t *testing.T, s String, from string) {
-	if s.String != "test" {
-		t.Errorf("bad %s string: %s ≠ %s\n", from, s.String, "test")
+	if s.Str != "test" {
+		t.Errorf("bad %s string: %s ≠ %s\n", from, s.Str, "test")
 	}
 	if !s.Valid {
 		t.Error(from, "is invalid, but should be valid")
