@@ -5,7 +5,7 @@ package profbiss.null;
 option go_package = "null";
 
 // String is a nullable string. It supports SQL and JSON serialization.
-message Int {
+message Int64 {
     int64 i = 1;
     bool valid = 2;
 }

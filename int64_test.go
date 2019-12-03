@@ -170,8 +170,8 @@ func TestInt64Scan(t *testing.T) {
 }
 
 func assertInt64(t *testing.T, i Int64, from string) {
-	if i.Int64 != 9223372036854775806 {
-		t.Errorf("bad %s int64: %d ≠ %d\n", from, i.Int64, 9223372036854775806)
+	if i.I != 9223372036854775806 {
+		t.Errorf("bad %s int64: %d ≠ %d\n", from, i.I, 9223372036854775806)
 	}
 	if !i.Valid {
 		t.Error(from, "is invalid, but should be valid")
