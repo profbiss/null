@@ -5,7 +5,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
-	"github.com/volatiletech/null/convert"
+	"github.com/profbiss/null/convert"
 	"github.com/volatiletech/sqlboiler/randomize"
 )
 

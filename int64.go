@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/volatiletech/null/convert"
+	"github.com/profbiss/null/convert"
 )
 
 // NewInt64 creates a new Int64
